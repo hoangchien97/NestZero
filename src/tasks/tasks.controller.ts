@@ -19,16 +19,16 @@ export class TasksController {
     // }
 
     @Get('/:id')
-    getTaskById(@Param('id', ParseIntPipe) id: string): Promise<Task>{
+    getTaskById(@Param('id', ParseIntPipe) id: string): Promise<Task> {
         return this.tasksService.getTaskById(id);
     }
 
-    // @Post()
-    // @UsePipes(ValidationPipe)
-    // createTask(@Body() createTaskDTO: CreateTaskDTO): Task{
-    //     // console.log(title + `&` + description);
-    //     return this.tasksService.createTask(createTaskDTO);
-    // }
+    @Post()
+    @UsePipes(ValidationPipe)
+    createTask(@Body() createTaskDTO: CreateTaskDTO): Promise<Task> {
+        // console.log(title + `&` + description);
+        return this.tasksService.createTask(createTaskDTO);
+    }
 
     // @Patch('/:id/status')
     // updateTaskStatus(
