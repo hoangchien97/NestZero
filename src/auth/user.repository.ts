@@ -11,14 +11,14 @@ export class UserRepository extends Repository<User> {
         const {username, password} = authCredentialsDto;
 
         let user = await this.findOne({where: {username}});
-        // console.log(user);
+        console.log(user);
         if(!user || !(await user.comparePass(password))){
             throw new HttpException(
                 'Invalid username/password',
                 HttpStatus.BAD_REQUEST,
             );
         }
-        return user;
+        return user.username;
     }
     // register
     async signUp(authCredentialsDto: AuthCredentialsDto): Promise<User>{
