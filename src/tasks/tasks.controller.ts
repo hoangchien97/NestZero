@@ -15,8 +15,11 @@ import { GetUser } from './../auth/get-user.decorator';
 export class TasksController {
     constructor(private tasksService: TasksService){}
     @Get()
-    getTasks(@Query(ValidationPipe) filterDTO: GetTaskFilterDTO) {
-        return this.tasksService.getTasks(filterDTO);
+    getTasks(
+        @Query(ValidationPipe) filterDTO: GetTaskFilterDTO,
+        @GetUser() user: User
+    ): Promise<Task[]> {
+        return this.tasksService.getTasks(filterDTO, user);
     }
 
     @Get('/:id')
