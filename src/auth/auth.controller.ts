@@ -3,7 +3,7 @@ import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { AuthService } from './auth.service';
 import { User } from './user.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { getUser } from './get-user.decorator';
+import { GetUser } from './get-user.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -21,11 +21,5 @@ export class AuthController {
     signUp(@Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto): Promise<User> {
         // console.log(authCredentialsDto); // { username: 'admin', password: '123456' }
         return this.authService.signUp(authCredentialsDto);
-    }
-
-    @Post('/test')
-    @UseGuards(AuthGuard())
-    test(@getUser() user: User) {
-        console.log(user);
     }
 }
