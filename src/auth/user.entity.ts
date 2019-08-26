@@ -1,5 +1,6 @@
-import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Unique, BeforeInsert } from "typeorm";
+import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Unique, BeforeInsert, OneToMany } from "typeorm";
 import * as bcrypt from 'bcryptjs';
+import { Task } from "./../tasks/task.entity";
 
 @Entity()
 @Unique(['username'])
@@ -12,6 +13,9 @@ export class User extends BaseEntity {
 
     @Column()
     password: string;
+
+    @OneToMany(type => Task, task => task.user, { eager: true }) // task.user <=> user: User trong file task.entity
+    tasks: Task[];
 
     @BeforeInsert()
     async hashPassword() {
