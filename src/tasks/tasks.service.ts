@@ -37,15 +37,8 @@ export class TasksService {
         return task;
     }
 
-    // updateTaskStatus(id: string, status: TaskStatus){
-    //     const task = this.getTaskById(id);
-    //     task.status = status;
-    //     return task;
-    // }
-
     async deleteTask(id: number): Promise<DeleteResult> {
         const task = await this.taskRepository.delete(id);
-        // console.log(task);
         
         if(task.affected === 0){
             throw new NotFoundException(`Task with ${id} not found`);

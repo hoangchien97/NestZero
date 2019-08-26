@@ -5,11 +5,13 @@ import { TasksModule } from './tasks/tasks.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
 import { Connection } from 'typeorm';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
-    TasksModule
+    TasksModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
