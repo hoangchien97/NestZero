@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, HttpException, HttpStatus } from '@nestjs/common';
 import { GetTaskFilterDTO } from './dto/get-task-filter.dto';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { TaskRepository } from './task.repository';
@@ -29,6 +29,7 @@ export class TasksService {
         const task = await this.taskRepository.findOne({ where: { id, userId: user.id } });
         if(!task){
             throw new NotFoundException(`Task with id ${id} not found`);
+            // throw new HttpException('Not found', HttpStatus.NOT_FOUND);
         }
         return task;
     }
