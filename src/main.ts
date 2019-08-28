@@ -5,11 +5,13 @@ import * as config from 'config';
 
 async function bootstrap() {
   const serverConfig = config.get('server');
+  // console.log(serverConfig);
   const app = await NestFactory.create(AppModule);
   
-  // console.log(serverConfig);
-  
-
+  // CORS : Cross-origin resoure sharing : là 1 cơ chế cho phép tài nguyên sở dụng ở 1 domain khác ( port )
+  if(process.env.NODE_ENV === 'development'){
+    app.enableCors();
+  }
   const port = process.env.PORT || serverConfig.port;
   await app.listen(port);
 
