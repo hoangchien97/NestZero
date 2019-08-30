@@ -9,7 +9,10 @@ import { TaskStatus } from './task-status.enum';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from './../auth/user.entity';
 import { GetUser } from './../auth/get-user.decorator';
+import { ApiResponse, ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiUseTags('tasks')
+@ApiBearerAuth()
 @Controller('tasks')
 @UseGuards(AuthGuard())
 export class TasksController {
@@ -34,6 +37,10 @@ export class TasksController {
     }
 
     @Post()
+    @ApiResponse({ status: 201, description: 'The record has been successfully created.'})
+    @ApiResponse({ status: 403, description: 'Forbidden.'})
+    // @ApiCreatedResponse({ description: 'The record has been successfully created.', type: Task })
+
     @UsePipes(ValidationPipe)
     createTask(
         @Body() createTaskDTO: CreateTaskDTO,
