@@ -23,7 +23,6 @@ export class HttpErrorFilter implements ExceptionFilter {
       `${request.method} ${request.url}`,
       JSON.stringify(errResponse),
       'ExceptionFilter')
-
     response.status(status).json(errResponse);
   }
 }

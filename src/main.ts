@@ -28,6 +28,6 @@ async function bootstrap() {
   const port = process.env.PORT || serverConfig.port;
   await app.listen(port);
 
-  Logger.log(`Server running on http://localhost:${port}`, 'Bootstrap');
+  Logger.log(`Server running on http://localhost:${port}/api/v1`, 'Bootstrap');
 }
 bootstrap();

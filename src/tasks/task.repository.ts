@@ -23,7 +23,7 @@ export class TaskRepository extends Repository<Task> {
         if(search){
             query.andWhere('(task.title LIKE :search OR task.description LIKE :search)', { search: `%${search}%` });
         }
-        const tasks = await query.getMany();
+        const tasks = await query.skip(5).take(10).getMany(); // skip : take <=> limit : offset
         return tasks;
     } 
 

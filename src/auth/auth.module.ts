@@ -12,7 +12,8 @@ const jwtConfig = config.get('jwt');
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
+    // có passport-local and passport-jwt. Để default jwt
+    PassportModule.register({ defaultStrategy: 'jwt' }), 
     JwtModule.register({
       secret: process.env.JWT_SECRET || jwtConfig.secret,
       signOptions: { 
