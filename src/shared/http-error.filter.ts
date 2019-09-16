@@ -16,13 +16,13 @@ export class HttpErrorFilter implements ExceptionFilter {
       timestamp: new Date().toLocaleDateString('vi-VN'), // 2019-08-27T09
       path: request.url,
       method: request.method,
-      message: exception.message.error || exception.message || null
-    }
+      message: exception.message.error || exception.message || null,
+    };
 
     Logger.error(
       `${request.method} ${request.url}`,
       JSON.stringify(errResponse),
-      'ExceptionFilter')
+      'ExceptionFilter');
     response.status(status).json(errResponse);
   }
 }

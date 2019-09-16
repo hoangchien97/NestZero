@@ -14,21 +14,21 @@ import { LoggingInterceptor } from './shared/logging.interceptor';
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
     TasksModule,
-    AuthModule
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
     {
       provide: APP_FILTER,
-      useClass: HttpErrorFilter
+      useClass: HttpErrorFilter,
     },
     {
       provide: APP_INTERCEPTOR,
-      useClass: LoggingInterceptor
-    }
+      useClass: LoggingInterceptor,
+    },
   ],
 })
 export class AppModule {
-  constructor(private readonly connection: Connection){}
+  constructor(private readonly connection: Connection) {}
 }

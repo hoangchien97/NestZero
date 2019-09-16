@@ -1,5 +1,5 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, Query, UsePipes, ValidationPipe, ParseIntPipe, Put, UseGuards, Logger } from '@nestjs/common';
-import { TasksService } from './tasks.service'; 
+import { Controller, Get, Post, Body, Param, Delete, Query, UsePipes, ValidationPipe, ParseIntPipe, Put, UseGuards, Logger } from '@nestjs/common';
+import { TasksService } from './tasks.service';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { GetTaskFilterDTO } from './dto/get-task-filter.dto';
 import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
@@ -10,6 +10,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { User } from './../auth/user.entity';
 import { GetUser } from './../auth/get-user.decorator';
 import { ApiResponse, ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
+import { TasksAll } from './task.interface';
 
 @ApiUseTags('tasks')
 @ApiBearerAuth()
@@ -18,12 +19,12 @@ import { ApiResponse, ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 export class TasksController {
     private logger = new Logger('TasksController');
 
-    constructor(private tasksService: TasksService){}
+    constructor(private tasksService: TasksService) {}
     @Get()
     getTasks(
         @Query(ValidationPipe) filterDTO: GetTaskFilterDTO,
-        @GetUser() user: User
-    ): Promise<Task[]> {
+        @GetUser() user: User,
+    ): Promise<TasksAll> {
         this.logger.verbose(`User "${user.username}" retrieving all tasks. Filters : ${JSON.stringify(filterDTO)}`);
         return this.tasksService.getTasks(filterDTO, user);
     }
@@ -31,7 +32,7 @@ export class TasksController {
     @Get('/:id')
     getTaskById(
         @Param('id', ParseIntPipe) id: number,
-        @GetUser() user: User
+        @GetUser() user: User,
     ): Promise<Task> {
         return this.tasksService.getTaskById(id, user);
     }
@@ -44,7 +45,7 @@ export class TasksController {
     @UsePipes(ValidationPipe)
     createTask(
         @Body() createTaskDTO: CreateTaskDTO,
-        @GetUser() user: User
+        @GetUser() user: User,
     ): Promise<Task> {
         return this.tasksService.createTask(createTaskDTO, user);
     }
@@ -53,15 +54,15 @@ export class TasksController {
     updateTaskStatus(
         @Param('id', ParseIntPipe) id: number,
         @Body('status', TaskStatusValidationPipe) status: TaskStatus,
-        @GetUser() user: User
-    ): Promise<Task>{
+        @GetUser() user: User,
+    ): Promise<Task> {
         return this.tasksService.updateTaskStatus( id, status, user);
     }
 
     @Delete('/:id')
     deleteTask(
         @Param('id', ParseIntPipe) id: number,
-        @GetUser() user: User
+        @GetUser() user: User,
     ): Promise<DeleteResult> {
         return this.tasksService.deleteTask(id, user);
     }

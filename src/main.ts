@@ -16,13 +16,13 @@ async function bootstrap() {
     .setDescription('The tasks API description')
     .setVersion('1.0')
     .addTag('tasks') // controller => sd .ApiUseTags('tasks)
-    .setBasePath('/api/v1') 
+    .setBasePath('/api/v1')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api/v1/docs', app, document);
 
   // CORS : Cross-origin resoure sharing : là 1 cơ chế cho phép tài nguyên sở dụng ở 1 domain khác ( port )
-  if(process.env.NODE_ENV === 'development'){
+  if (process.env.NODE_ENV === 'development') {
     app.enableCors();
   }
   const port = process.env.PORT || serverConfig.port;

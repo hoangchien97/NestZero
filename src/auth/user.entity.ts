@@ -1,6 +1,6 @@
-import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Unique, BeforeInsert, OneToMany } from "typeorm";
+import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Unique, BeforeInsert, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { Task } from "./../tasks/task.entity";
+import { Task } from './../tasks/task.entity';
 
 @Entity()
 @Unique(['username'])
@@ -19,7 +19,7 @@ export class User extends BaseEntity {
 
     @BeforeInsert()
     async hashPassword() {
-        this.password = await bcrypt.hash(this.password,10);
+        this.password = await bcrypt.hash(this.password, 10);
     }
 
     async comparePass(attempt: string) {

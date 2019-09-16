@@ -1,15 +1,15 @@
 
-import { IsOptional, IsIn, IsNotEmpty } from "class-validator";
-import { TaskStatus } from "./../task-status.enum";
-import { ApiModelProperty } from "@nestjs/swagger";
+import { IsOptional, IsIn, IsNotEmpty } from 'class-validator';
+import { TaskStatus } from './../task-status.enum';
+import { ApiModelProperty } from '@nestjs/swagger';
 
-export class GetTaskFilterDTO{
+export class GetTaskFilterDTO {
     @ApiModelProperty({
         enum: [
             'OPEN',
             'IN_PROCESS',
-            'DONE'
-        ]
+            'DONE',
+        ],
     })
     @IsOptional()
     @IsIn([TaskStatus.OPEN, TaskStatus.IN_PROCESS, TaskStatus.DONE])
@@ -18,4 +18,10 @@ export class GetTaskFilterDTO{
     @IsOptional()
     @IsNotEmpty()
     search: string;
+
+    @IsOptional()
+    limit: number;
+
+    @IsOptional()
+    offset: number;
 }
