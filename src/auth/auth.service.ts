@@ -24,21 +24,6 @@ export class AuthService {
     }
 
     async signUp(authCredentialsDto: AuthCredentialsDto): Promise<User> {
-        this
-        .mailerService
-        .sendMail({
-            to: 'demo.nestjs97@gmail.com', // sender address
-            from: 'hoangducchien97@gmail.com', // list of receivers
-            subject: 'Testing Nest MailerModule ✔', // Subject line
-            text: 'welcome', // plaintext body
-            html: '<b>welcome</b>', // HTML body content
-        })
-        // tslint:disable-next-line:no-empty
-        .then(() => {})
-        .catch((error) => {
-            // tslint:disable-next-line:no-console
-            console.log('err', error);
-        });
         return this.userRepository.signUp(authCredentialsDto);
     }
 }
