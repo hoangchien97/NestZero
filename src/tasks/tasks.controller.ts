@@ -40,7 +40,6 @@ export class TasksController {
     @Post()
     @ApiResponse({ status: 201, description: 'The record has been successfully created.'})
     @ApiResponse({ status: 403, description: 'Forbidden.'})
-    // @ApiCreatedResponse({ description: 'The record has been successfully created.', type: Task })
 
     @UsePipes(ValidationPipe)
     createTask(
