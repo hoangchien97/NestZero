@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './user.repository';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { User } from './user.entity';
-import { MailerService } from '@nest-modules/mailer';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +11,6 @@ export class AuthService {
         @InjectRepository(UserRepository)
         private userRepository: UserRepository,
         private jwtService: JwtService,
-        private readonly mailerService: MailerService,
     ) {}
 
     async signIn(authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string} > {
