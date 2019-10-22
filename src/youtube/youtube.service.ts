@@ -1,10 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Youtube } from './youtube.entity';
 import { Repository } from 'typeorm';
 import { google } from 'googleapis';
 import { YoutubeReposiry } from './youtube.repository';
-import { response } from 'express';
 import { GetApiYtbDTO } from './getlistAPI.dto';
 @Injectable()
 export class YoutubeService {
@@ -30,7 +29,7 @@ export class YoutubeService {
         // https://www.youtube.com/watch?videoId
         this.youtubeV3.videos.list(options, (err, response) => {
             if (err) {
-                console.log(err);
+                return false;
             }
 
             const channels = response.data.items;
@@ -44,9 +43,11 @@ export class YoutubeService {
                 inforYtb['viewCount'] = channel.statistics.viewCount ? channel.statistics.viewCount : '';
                 inforYtb['dislikeCount'] = channel.statistics.dislikeCount ? channel.statistics.dislikeCount : '';
                 inforYtb['commentCount'] = channel.statistics.commentCount ? channel.statistics.commentCount : '';
+                // inforYtb[''] = channel.snippet.title;
+                // inforYtb.push(channel.statistics.viewCount);
                 return inforYtb;
             });
-            console.log(result);
+            return result;
         });
 
     }
