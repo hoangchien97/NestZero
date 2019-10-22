@@ -9,12 +9,14 @@ import { AuthModule } from './auth/auth.module';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { LoggingInterceptor } from './shared/logging.interceptor';
+import { YoutubeModule } from './youtube/youtube.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
     TasksModule,
     AuthModule,
+    YoutubeModule,
   ],
   controllers: [AppController],
   providers: [
